@@ -1,0 +1,25 @@
+﻿@model List<ExpirationDate.Models.DTO.UserDTO>
+
+<h2>All Users Print</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Email</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.Username</td>
+                <td>@user.Email</td>
+               
+            </tr>
+        }
+    </tbody>
+</table>
