@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Error Log";
+}
+
+<h2>Error Log</h2>
+
+@if (ViewData["Errors"] != null)
+{
+    var errors = ViewData["Errors"] as List<string>;
+    if (errors.Count > 0)
+    {
+        <ul>
+            @foreach (var error in errors)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No errors found.</p>
+    }
+}
+else
+{
+    <p>No errors found.</p>
+}

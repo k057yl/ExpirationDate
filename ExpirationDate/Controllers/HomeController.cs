@@ -1,17 +1,19 @@
-using ExpirationDate.Data;
 using ExpirationDate.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace ExpirationDate.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
-        /*private readonly ILogger<HomeController> _logger;
+        /*
+        private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
         {
-            _logger = logger;          
+            _logger = logger;
         }
         */
         public IActionResult Index()
@@ -20,10 +22,10 @@ namespace ExpirationDate.Controllers
         }
 
         public IActionResult Privacy()
-        {
+        {           
             return View();
         }
-        
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

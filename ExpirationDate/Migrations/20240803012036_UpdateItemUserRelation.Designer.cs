@@ -4,6 +4,7 @@ using ExpirationDate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExpirationDate.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240803012036_UpdateItemUserRelation")]
+    partial class UpdateItemUserRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace ExpirationDate.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ItemId"));
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -321,9 +324,11 @@ namespace ExpirationDate.Migrations
 
             modelBuilder.Entity("ExpirationDate.Models.Entitys.Item", b =>
                 {
-                    b.HasOne("ExpirationDate.Models.Entitys.Category", null)
+                    b.HasOne("ExpirationDate.Models.Entitys.Category", "Category")
                         .WithMany("Items")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
@@ -334,6 +339,8 @@ namespace ExpirationDate.Migrations
                     b.HasOne("ExpirationDate.Models.Entitys.User", null)
                         .WithMany("Items")
                         .HasForeignKey("UserId1");
+
+                    b.Navigation("Category");
 
                     b.Navigation("User");
                 });

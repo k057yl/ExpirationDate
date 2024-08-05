@@ -1,10 +1,12 @@
 ﻿using ExpirationDate.Data;
 using ExpirationDate.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExpirationDate.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
         private readonly AppDbContext _context;

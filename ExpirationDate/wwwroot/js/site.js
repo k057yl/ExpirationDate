@@ -1,4 +1,4 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿/*window.addEventListener('beforeunload', function () {
+    document.cookie = "TestCookie=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+});
+*/
