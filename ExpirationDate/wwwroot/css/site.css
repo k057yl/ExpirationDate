@@ -18,5 +18,42 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #cccccc;
+}
+
+.main-menu {
+    background-color: #ccffff !important;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 90%;
+    width: 200px;
+    padding: 10px;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.main-menu-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #ccffcc;
+    text-align: center;
+    font-size: 20px;
+}
+
+/*
+    .main-menu-text {
+    color: #4cff00 !important;
+    font-size: 20px;    
+}
+*/
+.main-menu a:hover {
+    background-color: #ccccff;
+    color: #6666ff;
+}
+
+.main-menu a:active {
+    background-color: #222;
+    color: #ff0;
 }

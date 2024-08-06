@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ExpirationDate.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExpirationDate.Controllers
 {
@@ -73,55 +74,23 @@ namespace ExpirationDate.Controllers
 
             return View(model);
         }
-        /*
-        public async Task<IActionResult> Create(ItemDTO model)
+
+        [HttpGet]
+        public async Task<IActionResult> UserItems()
         {
-            if (ModelState.IsValid)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
-                var user = await _userManager.GetUserAsync(User);
-                if (user != null)
-                {
-                    string imagePath = null;
-
-                    if (model.ImageFile != null && model.ImageFile.Length > 0)
-                    {
-                        var fileName = Path.GetFileName(model.ImageFile.FileName);
-                        var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
-                        if (!Directory.Exists(uploads))
-                        {
-                            Directory.CreateDirectory(uploads);
-                        }
-                        var filePath = Path.Combine(uploads, fileName);
-
-                        using (var stream = new FileStream(filePath, FileMode.Create))
-                        {
-                            await model.ImageFile.CopyToAsync(stream);
-                        }
-
-                        imagePath = $"/images/{fileName}";
-                    }
-
-                    var item = new Item
-                    {
-                        Name = model.Name,
-                        ExpirationDate = model.ExpirationDate,
-                        ImagePath = imagePath,
-                        Description = model.Description,
-                        Rating = model.Rating,
-                        Price = model.Price,
-                        UserId = int.Parse(user.Id)
-                    };
-
-                    _context.Items.Add(item);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Index", "Home");
-                }
-                ModelState.AddModelError("", "User not found.");
+                return RedirectToAction("Login", "Account");
             }
 
-            return View(model);
+            var items = await _context.Items
+                .Where(i => i.UserId == user.Id)
+                .ToListAsync();
+
+            return View(items);
         }
-        */
+        
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
