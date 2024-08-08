@@ -154,7 +154,7 @@ namespace ExpirationDate.Controllers
 
                 _context.Items.Update(item);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("CreateView", "Item");
+                return RedirectToAction("Create", "Item");
             }
 
             return View(model);

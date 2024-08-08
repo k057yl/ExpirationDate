@@ -42,12 +42,13 @@ body {
     font-size: 20px;
 }
 
-/*
-    .main-menu-text {
-    color: #4cff00 !important;
-    font-size: 20px;    
+.preview-text {
+    position: relative;
+    font-size: 20px;
+    text-align: center;
+    left: 50px;
 }
-*/
+
 .main-menu a:hover {
     background-color: #ccccff;
     color: #6666ff;
@@ -56,4 +57,11 @@ body {
 .main-menu a:active {
     background-color: #222;
     color: #ff0;
+}
+.language-container {
+    position: absolute;
+    top: 10px;
+    right: 5%;
+    height: 20px;
+    width: 50px;
 }

@@ -4,17 +4,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Настройка Serilog
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .WriteTo.File("Logs/myapp-.txt", rollingInterval: RollingInterval.Day)
-    .CreateLogger();
-
-builder.Host.UseSerilog();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -22,13 +16,18 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");//Localization
+
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization();
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 
-// Add Identity services
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = true; // Требовать подтверждение email
+    options.SignIn.RequireConfirmedAccount = true;
 })
 .AddEntityFrameworkStores<AppDbContext>();
 
@@ -39,11 +38,10 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.AccessDeniedPath = "/Account/Error";
     options.LogoutPath = "/Account/Logout";
     options.Cookie.HttpOnly = true;
-    options.Cookie.SameSite = SameSiteMode.Lax; // или SameSiteMode.Strict, в зависимости от требований
+    options.Cookie.SameSite = SameSiteMode.Lax;
     options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
 });
 
-// Add global authorization filter
 builder.Services.AddControllersWithViews(options =>
 {
     var policy = new AuthorizationPolicyBuilder()
@@ -52,7 +50,6 @@ builder.Services.AddControllersWithViews(options =>
     options.Filters.Add(new AuthorizeFilter(policy));
 });
 
-// Add email sender service
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
@@ -76,64 +73,74 @@ app.UseAuthorization();
 
 app.UseSession();
 
+// Configure localization
+var supportedCultures = new[]
+{
+    new CultureInfo("en"),
+    new CultureInfo("ru")
+};
+
+var localizationOptions = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("en"),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures
+};
+
+app.UseRequestLocalization(localizationOptions);
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.MapRazorPages(); // Ensure Razor Pages for Identity are mapped
 
 app.Run();
 /*
-using ExpirationDate.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("Logs/myapp-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
-var builder = WebApplication.CreateBuilder(args);
+builder.Host.UseSerilog();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization()
+    .AddDataAnnotationsLocalization();
+*/
+// Add services to the container.
+//builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession();
+// Add localization services
+//builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");//Localization
+
+//builder.Services.AddControllersWithViews();//*************
+//builder.Services.AddRazorPages();//***********
+
+//builder.Services.AddDistributedMemoryCache();
+//builder.Services.AddSession();
 
 // Add Identity services
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<AppDbContext>();//*******************************
 
-// Configure application cookie
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.LoginPath = "/Account/Login";
-});//************************
 
-var app = builder.Build();
+// Add global authorization filter
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
-}
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+// Add email sender service
 
-app.UseRouting();
 
-// Enable authentication and authorization
-app.UseAuthentication();
-app.UseAuthorization();
 
-app.UseSession();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapRazorPages(); // Ensure Razor Pages for Identity are mapped
 
-app.Run();
+
+
+
+
+/*
+app.MapControllerRoute(//****************
+    name: "setLanguage",
+    pattern: "{controller=Home}/{action=SetLanguage}/{culture}/{returnUrl?}");
 */
+//app.MapRazorPages(); // Ensure Razor Pages for Identity are mapped
+
