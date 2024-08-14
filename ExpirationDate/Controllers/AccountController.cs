@@ -3,11 +3,12 @@ using ExpirationDate.Models.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace ExpirationDate.Controllers
 {
     [AllowAnonymous]
-    public class AccountController : Controller
+    public class AccountController : BaseController<HomeController>
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -16,7 +17,7 @@ namespace ExpirationDate.Controllers
         public AccountController(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender, IStringLocalizer<HomeController> localizer) : base(localizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -26,6 +27,7 @@ namespace ExpirationDate.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            SetViewData();
             return View();
         }
 
@@ -73,12 +75,14 @@ namespace ExpirationDate.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            SetViewData();
             return View();
         }
 
         [HttpGet]
         public IActionResult PrintGreetings()
         {
+            SetViewData();
             return View();
         }
 

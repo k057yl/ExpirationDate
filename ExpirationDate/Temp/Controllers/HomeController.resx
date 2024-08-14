@@ -118,28 +118,55 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Create" xml:space="preserve">
-    <value>Создать111</value>
+    <value>Create</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="ExpirationDate" xml:space="preserve">
+    <value>ExpirationDate</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Главная</value>
+    <value>Home</value>
+  </data>
+  <data name="HomePage.Paragraph1" xml:space="preserve">
+    <value>We are delighted to welcome you to our website, designed to help you effectively manage the expiration dates of your products. "ExpirationDate"is your reliable assistant for tracking the shelf life of food, medications, and other items, ensuring you can always use them before they expire.</value>
+  </data>
+  <data name="HomePage.Paragraph2" xml:space="preserve">
+    <value>Convenient Management: Easily add, update, and remove information about your products.
+Reminders: Receive notifications when your product's expiration date is approaching.
+Simplicity and Ease: Use an intuitive interface for quick and convenient management.
+Take care of your products and avoid unexpected issues with expired items. Stay one step ahead with "ExpirationDate"</value>
+  </data>
+  <data name="HomePage.Title" xml:space="preserve">
+    <value>
+Welcome to "ExpirationDate"!</value>
+  </data>
+  <data name="HomePage.WhatWeOffer" xml:space="preserve">
+    <value>What we offer:</value>
   </data>
   <data name="Item" xml:space="preserve">
-    <value>Элемент</value>
+    <value>Item</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Язык</value>
+    <value>Language</value>
   </data>
-  <data name="SiteName" xml:space="preserve">
-    <value>Срок Годности</value>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
   </data>
-  <data name="TextPreview" xml:space="preserve">
-    <value>Добро пожаловать на ExpirationDate!
-Мы рады приветствовать вас на нашем сайте, который поможет вам эффективно управлять сроками годности ваших товаров. ExpirationDate — это ваш надежный помощник в отслеживании сроков годности продуктов, лекарств и других товаров, чтобы вы всегда могли использовать их до истечения срока.
-
-Что мы предлагаем:
-Удобное управление: Легко добавляйте, обновляйте и удаляйте информацию о ваших товарах.
-Напоминания: Получайте уведомления, когда срок годности вашего продукта приближается к концу.
-Простота и удобство: Пользуйтесь интуитивно понятным интерфейсом для быстрого и удобного управления.
-Заботьтесь о своих товарах и избегайте неожиданных проблем с истекшими сроками. Оставайтесь на шаг впереди с ExpirationDate!</value>
+  <data name="Notification.Name" xml:space="preserve">
+    <value>The Name field is required</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Select file</value>
   </data>
 </root>

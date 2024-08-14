@@ -6,44 +6,46 @@
 
 <h2>My Items</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Expiration Date</th>
-            <th>Price</th>
-            <th>Rating</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="item-container">
+    <table class="table">
+        <thead>
             <tr>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.ImagePath))
-                    {
-                        <img src="@item.ImagePath" alt="Image" style="max-width: 100px; max-height: 100px;" />
-                    }
-                    else
-                    {
-                        <span>No image</span>
-                    }
-                </td>
-                <td>@item.Name</td>
-                <td>@item.Description</td>
-                <td>@item.ExpirationDate.ToShortDateString()</td>
-                <td>@item.Price.ToString("C")</td>
-                <td>@item.Rating</td>
-                <td>
-                    <a href="@Url.Action("Edit", "Item", new { id = item.ItemId })" class="btn btn-primary">Edit</a>
-                    <form action="@Url.Action("Delete", "Item", new { id = item.ItemId })" method="post" style="display:inline;">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Expiration Date</th>
+                <th>Price</th>
+                <th>Rating</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.ImagePath))
+                        {
+                            <img src="@item.ImagePath" alt="Image" style="max-width: 100px; max-height: 100px;" />
+                        }
+                        else
+                        {
+                            <span>No image</span>
+                        }
+                    </td>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>@item.ExpirationDate.ToShortDateString()</td>
+                    <td>@item.Price.ToString("C")</td>
+                    <td>@item.Rating</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Item", new { id = item.ItemId })" class="btn btn-primary">Edit</a>
+                        <form action="@Url.Action("Delete", "Item", new { id = item.ItemId })" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

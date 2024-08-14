@@ -42,7 +42,7 @@ body {
     font-size: 20px;
 }
 
-.preview-text {
+.home-preview-text {
     position: relative;
     font-size: 20px;
     text-align: center;
@@ -64,4 +64,20 @@ body {
     right: 5%;
     height: 20px;
     width: 50px;
+}
+.registration-authorization-container {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 200px;
+    width: 300px;
+}
+.item-container {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100px;
+    width: 400px;
 }

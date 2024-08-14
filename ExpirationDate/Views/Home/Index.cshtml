@@ -1,13 +1,9 @@
 ﻿@using ExpirationDate.Controllers
-@inject Microsoft.Extensions.Localization.IStringLocalizer<HomeController> localizer
-@*
 @using Microsoft.AspNetCore.Mvc.Localization
-@inject IViewLocalizer Localizer
-*@
+@inject ExpirationDate.Resources.SharedLocalizationService localizer
 
 @{
     ViewData["Title"] = localizer["Home"];
-    string companyName = "ExpirationDate";
 }
 
 <div class="text-center">
@@ -19,9 +15,17 @@
         </form>
     }
     <div class="text-center">
-        <p>
-            <b>@companyName -</b>
-            @localizer["TextPreview"]
+        <b class="home-preview-text">
+            @localizer["HomePage.Title"]
+        </b>
+        <p class="home-preview-text">
+            @localizer["HomePage.Paragraph1"]
+        </p>
+        <p class="home-preview-text">
+            <b>@localizer["HomePage.WhatWeOffer"]</b>
+        </p>
+        <p class="home-preview-text">
+            @localizer["HomePage.Paragraph2"]
         </p>
     </div>
 </div>

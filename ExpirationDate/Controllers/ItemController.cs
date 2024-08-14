@@ -5,16 +5,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ExpirationDate.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace ExpirationDate.Controllers
 {
     [Authorize]
-    public class ItemController : Controller
+    public class ItemController : BaseController<HomeController>//Controller
     {
         private readonly AppDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public ItemController(AppDbContext context, UserManager<IdentityUser> userManager)
+        public ItemController(AppDbContext context, UserManager<IdentityUser> userManager, IStringLocalizer<HomeController> localizer) : base(localizer)//***
         {
             _context = context;
             _userManager = userManager;

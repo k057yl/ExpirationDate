@@ -22,6 +22,11 @@ namespace ExpirationDate.Controllers
         [HttpPost]
         public IActionResult SetLanguage(string culture, string returnUrl)
         {
+            if (string.IsNullOrEmpty(culture))
+            {
+                culture = "en-US";
+            }
+
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),

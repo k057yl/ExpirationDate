@@ -7,24 +7,46 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using ExpirationDate.Resources;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Configure database context
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");//Localization
-
+// Configure localization
 builder.Services.AddControllersWithViews()
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
     .AddDataAnnotationsLocalization();
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
+builder.Services.AddSingleton<SharedLocalizationService>();//**********************
+
+builder.Services.Configure<RequestLocalizationOptions>(option =>
+{
+    var supportedCulture = new[]
+    {
+        new CultureInfo("en-US"),
+        new CultureInfo("ru-RU")
+    };
+
+    option.DefaultRequestCulture = new RequestCulture("en-US");
+    option.SupportedUICultures = supportedCulture;
+    
+    option.SupportedUICultures = supportedCulture;//*************
+    option.RequestCultureProviders.Insert(0, new CookieRequestCultureProvider());//*************
+});
+
+// Configure session and caching
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 
+// Configure Identity
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
@@ -42,6 +64,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
 });
 
+// Configure authorization
 builder.Services.AddControllersWithViews(options =>
 {
     var policy = new AuthorizationPolicyBuilder()
@@ -50,10 +73,13 @@ builder.Services.AddControllersWithViews(options =>
     options.Filters.Add(new AuthorizeFilter(policy));
 });
 
+// Configure email settings
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 var app = builder.Build();
+
+app.UseRequestLocalization();//*******************
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -74,6 +100,7 @@ app.UseAuthorization();
 app.UseSession();
 
 // Configure localization
+/*
 var supportedCultures = new[]
 {
     new CultureInfo("en"),
@@ -88,59 +115,11 @@ var localizationOptions = new RequestLocalizationOptions
 };
 
 app.UseRequestLocalization(localizationOptions);
+*/
+
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-/*
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .WriteTo.File("Logs/myapp-.txt", rollingInterval: RollingInterval.Day)
-    .CreateLogger();
-
-builder.Host.UseSerilog();
-
-// Add services to the container.
-builder.Services.AddControllersWithViews()
-    .AddViewLocalization()
-    .AddDataAnnotationsLocalization();
-*/
-// Add services to the container.
-//builder.Services.AddControllersWithViews();
-
-
-// Add localization services
-//builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");//Localization
-
-//builder.Services.AddControllersWithViews();//*************
-//builder.Services.AddRazorPages();//***********
-
-//builder.Services.AddDistributedMemoryCache();
-//builder.Services.AddSession();
-
-// Add Identity services
-
-
-// Add global authorization filter
-
-
-// Add email sender service
-
-
-
-
-
-
-
-
-
-
-/*
-app.MapControllerRoute(//****************
-    name: "setLanguage",
-    pattern: "{controller=Home}/{action=SetLanguage}/{culture}/{returnUrl?}");
-*/
-//app.MapRazorPages(); // Ensure Razor Pages for Identity are mapped
-
