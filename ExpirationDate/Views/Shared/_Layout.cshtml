@@ -4,6 +4,176 @@
 @using Microsoft.Extensions.Localization
 @inject ExpirationDate.Resources.SharedLocalizationService sharedLocalizer
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ExpirationDate</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ExpirationDate.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="main-menu">
+            <div class="container-fluid">
+                <b class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@sharedLocalizer["ExpirationDate"]</b>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="main-menu-container">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@sharedLocalizer["Button.Home"]</a>
+                        </li>
+                        @*
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">@sharedLocalizer["Button.Privacy"]</a>
+                        </li>
+                        *@
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Print">@sharedLocalizer["Profile"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Item" asp-action="UserItems">@sharedLocalizer["Button.Item"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Item" asp-action="Create">@sharedLocalizer["Button.Create"]</a>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <form asp-controller="Account" asp-action="Logout" method="post">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-primary">Logout</button>
+                            </form>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>        
+    </header>
+    <div class="home-header">
+        <nav class="language-container">
+            <div class="language-selector">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    @sharedLocalizer["Button.Language"]
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li>
+                        <form action="@Url.Action("SetLanguage", "Home")" method="post" class="d-inline">
+                            <input type="hidden" name="culture" value="en-US" />
+                            <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                            <button type="submit" class="dropdown-item">English</button>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="@Url.Action("SetLanguage", "Home")" method="post" class="d-inline">
+                            <input type="hidden" name="culture" value="ru-RU" />
+                            <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                            <button type="submit" class="dropdown-item">Русский</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - ExpirationDate - <a asp-area="" asp-controller="Home" asp-action="Privacy">@sharedLocalizer["Button.Privacy"]</a>
+            <img src="~/images/Logo_v1.png" alt="Developer Logo" class="developer-logo">
+        </div>
+    </footer>
+
+    <!-- Modal for Delete Confirmation -->
+    <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmationModalLabel">@sharedLocalizer["ConfirmDelete"]</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    @sharedLocalizer["ConfirmDeleteMessage"]
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@sharedLocalizer["Cancel"]</button>
+                    <form id="deleteItemForm" method="post" action="">
+                        <button type="submit" class="btn btn-danger">@sharedLocalizer["Delete"]</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        $('#deleteConfirmationModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var itemId = button.data('item-id');
+            var form = $('#deleteItemForm');
+            form.attr('action', '/Item/Delete/' + itemId);
+        });
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuLinks = document.querySelectorAll('.main-menu a');
+            const savedActiveLink = localStorage.getItem('activeLink');
+
+            // Флаг для отслеживания, была ли установлена активная ссылка
+            let linkActivated = false;
+
+            // Если в localStorage есть сохраненная активная ссылка, назначаем класс active
+            if (savedActiveLink) {
+                menuLinks.forEach(link => {
+                    if (link.getAttribute('href') === savedActiveLink) {
+                        link.classList.add('active');
+                        linkActivated = true;
+                    }
+                });
+            }
+
+            // Если активная ссылка не была установлена, делаем активной кнопку "Home"
+            if (!linkActivated) {
+                menuLinks.forEach(link => {
+                    if (link.getAttribute('href') === '/Home/Index') {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Удаляем класс 'active' у всех ссылок
+                    menuLinks.forEach(l => l.classList.remove('active'));
+
+                    // Добавляем класс 'active' к нажатой ссылке
+                    link.classList.add('active');
+
+                    // Сохраняем активную ссылку в localStorage
+                    localStorage.setItem('activeLink', link.getAttribute('href'));
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+@*
+@using ExpirationDate.Controllers
+@using ExpirationDate.Resources
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization
+@inject ExpirationDate.Resources.SharedLocalizationService sharedLocalizer
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -78,66 +248,6 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2024 - ExpirationDate - <a asp-area="" asp-controller="Home" asp-action="Privacy">@sharedLocalizer["Privacy"]</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
-</html>
-@*
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ExpirationDate</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/ExpirationDate.styles.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        
-        <nav class="main-menu">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ExpirationDate</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="main-menu-container">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Print">Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Item" asp-action="UserItems">UserItems</a>
-                        </li>
-                        <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Item" asp-action="Create">Create</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - ExpirationDate - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

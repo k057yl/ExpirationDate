@@ -117,109 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Button.About" xml:space="preserve">
-    <value>О Нас</value>
-  </data>
-  <data name="Button.Create" xml:space="preserve">
-    <value>Создать</value>
-  </data>
-  <data name="Button.Delete" xml:space="preserve">
-    <value>Удалить</value>
-  </data>
-  <data name="Button.Edit" xml:space="preserve">
-    <value>Редактировать</value>
-  </data>
-  <data name="Button.Home" xml:space="preserve">
-    <value>Главная</value>
-  </data>
-  <data name="Button.Item" xml:space="preserve">
-    <value>Элемент</value>
-  </data>
-  <data name="Button.Language" xml:space="preserve">
-    <value>Язык</value>
-  </data>
-  <data name="Button.No" xml:space="preserve">
-    <value>Нет</value>
-  </data>
-  <data name="Button.Privacy" xml:space="preserve">
-    <value>Конфиденциальность</value>
-  </data>
-  <data name="Button.Yes" xml:space="preserve">
-    <value>Да</value>
-  </data>
-  <data name="CreatePage.Actions" xml:space="preserve">
-    <value>Действия</value>
-  </data>
-  <data name="CreatePage.Description" xml:space="preserve">
-    <value>Описание</value>
-  </data>
-  <data name="CreatePage.Image" xml:space="preserve">
-    <value>Фото</value>
-  </data>
-  <data name="CreatePage.Name" xml:space="preserve">
-    <value>Название</value>
-  </data>
-  <data name="CreatePage.Price" xml:space="preserve">
-    <value>Цена</value>
-  </data>
-  <data name="CreatePage.Rating" xml:space="preserve">
-    <value>Рейтинг</value>
-  </data>
-  <data name="CreatePage.Save" xml:space="preserve">
-    <value>Сохранить</value>
-  </data>
-  <data name="CreatePage.SelectFile" xml:space="preserve">
-    <value>Выбрать Файл</value>
-  </data>
-  <data name="ExpirationDate" xml:space="preserve">
-    <value>Срок Годности</value>
-  </data>
-  <data name="Field.Description" xml:space="preserve">
-    <value>Введите Описание</value>
-  </data>
-  <data name="Field.Name" xml:space="preserve">
-    <value>Введите Название</value>
-  </data>
-  <data name="HomePage.Paragraph1" xml:space="preserve">
-    <value>Мы рады приветствовать вас на нашем сайте, который поможет вам эффективно управлять сроками годности ваших товаров. "Срок Годности"— это ваш надежный помощник в отслеживании сроков годности продуктов, лекарств и других товаров, чтобы вы всегда могли использовать их до истечения срока.</value>
-  </data>
-  <data name="HomePage.Paragraph2" xml:space="preserve">
-    <value>Удобное управление: Легко добавляйте, обновляйте и удаляйте информацию о ваших товарах.
-Напоминания: Получайте уведомления, когда срок годности вашего продукта приближается к концу.
-Простота и удобство: Пользуйтесь интуитивно понятным интерфейсом для быстрого и удобного управления.
-Заботьтесь о своих товарах и избегайте неожиданных проблем с истекшими сроками. Оставайтесь на шаг впереди с "Срок Годности"!</value>
-  </data>
-  <data name="HomePage.Title" xml:space="preserve">
-    <value>Добро пожаловать на "Срок Годности"!</value>
-  </data>
-  <data name="HomePage.WhatWeOffer" xml:space="preserve">
-    <value>Что мы предлагаем:</value>
-  </data>
-  <data name="Item.ExpirationDate" xml:space="preserve">
-    <value>Дата окончания срока (использовать до)</value>
-  </data>
-  <data name="Message.Delete.Description" xml:space="preserve">
-    <value>Вы действительно хотите удалить элемент?</value>
-  </data>
-  <data name="Message.Delete.Title" xml:space="preserve">
-    <value>Удалить элемент</value>
-  </data>
-  <data name="Warning.DescriptionMinLengthMessage" xml:space="preserve">
+  <data name="DescriptionMinLengthMessage" xml:space="preserve">
     <value>Описание должно быть длиннее 6 символов</value>
   </data>
-  <data name="Warning.ExpirationDateInFuture" xml:space="preserve">
+  <data name="ExpirationDateInFuture" xml:space="preserve">
     <value>Дата истечения должна быть в будущем</value>
   </data>
-  <data name="Warning.NameMinLengthMessage" xml:space="preserve">
+  <data name="NameMinLengthMessage" xml:space="preserve">
     <value>Название должно быть длиннее 2 символов</value>
   </data>
-  <data name="Warning.PriceGreaterThanZero" xml:space="preserve">
+  <data name="PriceGreaterThanZero" xml:space="preserve">
     <value>Цена должна быть больше нуля</value>
   </data>
-  <data name="Warning.RatingBetweenOneAndFive" xml:space="preserve">
+  <data name="RatingBetweenOneAndFive" xml:space="preserve">
     <value>Рейтинг должен быть от 1 до 5</value>
   </data>
-  <data name="Warning.RequiredFieldMessage" xml:space="preserve">
-    <value>Поле обязательно</value>
+  <data name="RequiredFieldMessage" xml:space="preserve">
+    <value>Это поле обязательно для заполнения</value>
   </data>
 </root>

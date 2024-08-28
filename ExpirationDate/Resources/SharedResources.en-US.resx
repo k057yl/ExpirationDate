@@ -123,6 +123,12 @@
   <data name="Button.Create" xml:space="preserve">
     <value>Create</value>
   </data>
+  <data name="Button.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Button.Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="Button.Home" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -132,11 +138,23 @@
   <data name="Button.Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="Button.No" xml:space="preserve">
+    <value>No</value>
+  </data>
   <data name="Button.Privacy" xml:space="preserve">
     <value>Privacy</value>
   </data>
+  <data name="Button.Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="CreatePage.Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
   <data name="CreatePage.Description" xml:space="preserve">
     <value>Description</value>
+  </data>
+  <data name="CreatePage.Image" xml:space="preserve">
+    <value>Image</value>
   </data>
   <data name="CreatePage.Name" xml:space="preserve">
     <value>Name</value>
@@ -156,6 +174,12 @@
   <data name="ExpirationDate" xml:space="preserve">
     <value>ExpirationDate</value>
   </data>
+  <data name="Field.Description" xml:space="preserve">
+    <value>Enter Description</value>
+  </data>
+  <data name="Field.Name" xml:space="preserve">
+    <value>Enter Name</value>
+  </data>
   <data name="HomePage.Paragraph1" xml:space="preserve">
     <value>We are delighted to welcome you to our website, designed to help you effectively manage the expiration dates of your products. "ExpirationDate"is your reliable assistant for tracking the shelf life of food, medications, and other items, ensuring you can always use them before they expire.</value>
   </data>
@@ -170,5 +194,32 @@ Take care of your products and avoid unexpected issues with expired items. Stay 
   </data>
   <data name="HomePage.WhatWeOffer" xml:space="preserve">
     <value>What we offer:</value>
+  </data>
+  <data name="Item.ExpirationDate" xml:space="preserve">
+    <value>Expiration date (use by)</value>
+  </data>
+  <data name="Message.Delete.Description" xml:space="preserve">
+    <value>Are you sure you want to remove the item?</value>
+  </data>
+  <data name="Message.Delete.Title" xml:space="preserve">
+    <value>Delete Item</value>
+  </data>
+  <data name="Warning.DescriptionMinLengthMessage" xml:space="preserve">
+    <value>Description must be longer than 6 characters</value>
+  </data>
+  <data name="Warning.ExpirationDateInFuture" xml:space="preserve">
+    <value>Expiration date must be in the future</value>
+  </data>
+  <data name="Warning.NameMinLengthMessage" xml:space="preserve">
+    <value>The name must be longer than 2 characters</value>
+  </data>
+  <data name="Warning.PriceGreaterThanZero" xml:space="preserve">
+    <value>Price must be greater than zero</value>
+  </data>
+  <data name="Warning.RatingBetweenOneAndFive" xml:space="preserve">
+    <value>Rating must be between 1 and 5</value>
+  </data>
+  <data name="Warning.RequiredFieldMessage" xml:space="preserve">
+    <value>The field is required</value>
   </data>
 </root>

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using ExpirationDate.Resources;
-using Microsoft.Extensions.Options;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,26 +20,28 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Configure localization
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ItemDTOValidator>());//***********************
 builder.Services.AddControllersWithViews()
+    .AddFluentValidation()//***************************
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
     .AddDataAnnotationsLocalization();
-builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-builder.Services.AddSingleton<SharedLocalizationService>();//**********************
+// Register custom localization service if needed
+builder.Services.AddSingleton<SharedLocalizationService>();
 
 builder.Services.Configure<RequestLocalizationOptions>(option =>
 {
-    var supportedCulture = new[]
+    var supportedCultures = new[]
     {
         new CultureInfo("en-US"),
         new CultureInfo("ru-RU")
     };
 
     option.DefaultRequestCulture = new RequestCulture("en-US");
-    option.SupportedUICultures = supportedCulture;
-    
-    option.SupportedUICultures = supportedCulture;//*************
-    option.RequestCultureProviders.Insert(0, new CookieRequestCultureProvider());//*************
+    option.SupportedCultures = supportedCultures;
+    option.SupportedUICultures = supportedCultures;
+    option.RequestCultureProviders.Insert(0, new CookieRequestCultureProvider());
 });
 
 // Configure session and caching
@@ -79,7 +81,7 @@ builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
-app.UseRequestLocalization();//*******************
+app.UseRequestLocalization();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -98,25 +100,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseSession();
-
-// Configure localization
-/*
-var supportedCultures = new[]
-{
-    new CultureInfo("en"),
-    new CultureInfo("ru")
-};
-
-var localizationOptions = new RequestLocalizationOptions
-{
-    DefaultRequestCulture = new RequestCulture("en"),
-    SupportedCultures = supportedCultures,
-    SupportedUICultures = supportedCultures
-};
-
-app.UseRequestLocalization(localizationOptions);
-*/
-
 
 app.MapControllerRoute(
     name: "default",

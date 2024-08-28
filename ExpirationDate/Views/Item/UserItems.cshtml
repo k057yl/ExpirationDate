@@ -1,22 +1,23 @@
 ﻿@model IEnumerable<ExpirationDate.Models.Entitys.Item>
+@inject ExpirationDate.Resources.SharedLocalizationService sharedLocalizer
 
 @{
     ViewData["Title"] = "My Items";
 }
 
-<h2>My Items</h2>
+<h2>@ViewData["Title"]</h2>
 
 <div class="item-container">
     <table class="table">
         <thead>
             <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Expiration Date</th>
-                <th>Price</th>
-                <th>Rating</th>
-                <th>Actions</th>
+                <th>@sharedLocalizer["CreatePage.Image"]</th>
+                <th>@sharedLocalizer["CreatePage.Name"]</th>
+                <th>@sharedLocalizer["CreatePage.Description"]</th>
+                <th>@sharedLocalizer["Item.ExpirationDate"]</th>
+                <th>@sharedLocalizer["CreatePage.Price"]</th>
+                <th>@sharedLocalizer["CreatePage.Rating"]</th>
+                <th>@sharedLocalizer["CreatePage.Actions"]</th>
             </tr>
         </thead>
         <tbody>
@@ -30,7 +31,7 @@
                         }
                         else
                         {
-                            <span>No image</span>
+                            <span>@sharedLocalizer["NoImage"]</span>
                         }
                     </td>
                     <td>@item.Name</td>
@@ -39,13 +40,64 @@
                     <td>@item.Price.ToString("C")</td>
                     <td>@item.Rating</td>
                     <td>
-                        <a href="@Url.Action("Edit", "Item", new { id = item.ItemId })" class="btn btn-primary">Edit</a>
-                        <form action="@Url.Action("Delete", "Item", new { id = item.ItemId })" method="post" style="display:inline;">
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                        @*<a href="@Url.Action("Edit", "Item", new { id = item.ItemId })" class="btn btn-primary">@sharedLocalizer["Button.Edit"]</a>*@
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-itemid="@item.ItemId">
+                            @sharedLocalizer["Button.Delete"]
+                        </button>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">@sharedLocalizer["Message.Delete.Title"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @sharedLocalizer["Message.Delete.Description"]
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" method="post" action="">
+                    <button type="submit" class="btn btn-danger">@sharedLocalizer["Button.Yes"]</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@sharedLocalizer["Button.No"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .table, .table th, .table td {
+        white-space: nowrap;
+        width: auto;
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    .table th, .table td {
+        padding: 8px;
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    .table th {
+            background-color: #99ffff;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        document.getElementById('deleteModal').addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var itemId = button.getAttribute('data-itemid');
+            var formAction = '@Url.Action("Delete", "Item", new { id = "__id__" })'.replace('__id__', itemId);
+            var form = document.getElementById('deleteForm');
+            form.setAttribute('action', formAction);
+        });
+    </script>
+}

@@ -2,16 +2,19 @@
 @using ExpirationDate.Controllers
 @inject ExpirationDate.Resources.SharedLocalizationService localizer
 
+<div>
+    <p>!!!</p>
+</div>
 <div class="registration-authorization-container">
     <form asp-action="Create" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label asp-for="Name" class="control-label">@localizer["CreatePage.Name"]</label>
-            <input asp-for="Name" class="form-control" />
+            <input asp-for="Name" class="form-control" placeholder="@localizer["Field.Name"]" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Description" class="control-label">@localizer["CreatePage.Description"]</label>
-            <input asp-for="Description" class="form-control" />
+            <input asp-for="Description" class="form-control" placeholder="@localizer["Field.Description"]" />
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -26,7 +29,10 @@
         </div>
         <div class="form-group">
             <label asp-for="ImageFile" class="control-label">@localizer["CreatePage.SelectFile"]</label>
-            <input asp-for="ImageFile" type="file" class="form-control" />
+            <div class="custom-file">
+                <input asp-for="ImageFile" id="fileUpload" class="custom-file-input" type="file" />
+                <label class="custom-file-label" for="fileUpload">@localizer["CreatePage.SelectFile"]</label>
+            </div>
             <span asp-validation-for="ImageFile" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -44,3 +50,149 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+@*
+@model ExpirationDate.Models.DTO.ItemDTO
+@using ExpirationDate.Controllers
+@inject ExpirationDate.Resources.SharedLocalizationService localizer
+
+<div>
+    <p>!!!</p>
+</div>
+<div class="registration-authorization-container">
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="Name" class="control-label">@localizer["CreatePage.Name"]</label>
+            <input asp-for="Name" class="form-control" placeholder="@localizer["Field.Name"]" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description" class="control-label">@localizer["CreatePage.Description"]</label>
+            <input asp-for="Description" class="form-control" placeholder="@localizer["Field.Description"]" />
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Price" class="control-label">@localizer["CreatePage.Price"]</label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Rating" class="control-label">@localizer["CreatePage.Rating"]</label>
+            <input asp-for="Rating" class="form-control" />
+            <span asp-validation-for="Rating" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ImageFile" class="custom-file-label">@localizer["CreatePage.SelectFile"]</label>
+            @*<label class="custom-file-label" for="fileUpload">Ебаный рот</label>
+            <input asp-for="ImageFile" id="fileUpload" class="custom-file-input" type="file" />
+            @*
+            <label asp-for="ImageFile" class="control-label">@localizer["CreatePage.SelectFile"]</label>
+            <input asp-for="ImageFile" type="file" class="form-control" />
+            
+            <span asp-validation-for="ImageFile" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ExpirationDate" class="control-label">@localizer["ExpirationDate"]</label>
+            <input asp-for="ExpirationDate" class="form-control" />
+            <span asp-validation-for="ExpirationDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="@localizer["CreatePage.Save"]" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <style>
+        .custom-file-input {
+            /*display: block; /* Элемент отображается как блок */
+            width: 100%; /* Элемент занимает всю ширину родителя */
+            padding: .375rem .75rem; /* Внутренние отступы для удобства ввода */
+            font-size: 1rem; /* Размер шрифта */
+            font-weight: 400; /* Обычный вес шрифта */
+            line-height: 1.5; /* Высота строки */
+            color: #495057; /* Цвет текста */
+            background-color: #000000; /* Фоновый цвет */
+            background-clip: padding-box; /* Обрезка фона, чтобы не выходил за границы */
+            border: 1px solid #ced4da; /* Граница вокруг элемента */
+            border-radius: .25rem; /* Скругление углов */
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            
+            
+        }
+
+        .custom-file-label {
+            /*display: block; /* Метка отображается как блок, занимает всю ширину родителя */
+            /*margin-bottom: .1rem; /* Нижний отступ, чтобы отделить метку от поля ввода */
+            
+        
+        }
+    </style>
+    <script>
+        document.querySelector('.custom-file-label').addEventListener('click', function () {
+            document.querySelector('.custom-file-input').click();
+        });
+
+        document.querySelector('.custom-file-input').addEventListener('change', function () {
+            var fileName = this.files[0] ? this.files[0].name : 'Выберите файл';
+            document.querySelector('.custom-file-label').textContent = fileName;
+        });
+    </script>
+}
+*/
+@*
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+*@
+@*
+            display: block;
+            width: 100%;
+            padding: .375rem .75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: .25rem;
+            transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+            *@
+@*
+
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: black;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            cursor: pointer; *@
+
+            @*
+            position: absolute;
+            width: 400px;
+            height: 20px;
+            opacity: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+            *@

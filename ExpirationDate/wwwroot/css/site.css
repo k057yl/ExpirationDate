@@ -9,7 +9,8 @@ html {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    /*font-size: 20px;*/
 }
 
 html {
@@ -21,7 +22,7 @@ body {
     margin-bottom: 60px;
     background-color: #cccccc;
 }
-
+/*Menu*/
 .main-menu {
     background-color: #ccffff !important;
     position: absolute;
@@ -31,7 +32,7 @@ body {
     width: 200px;
     padding: 10px;
     flex-direction: column;
-    border-radius: 10px;
+    border-radius: 20px;   
 }
 
 .main-menu-container {
@@ -47,17 +48,21 @@ body {
     font-size: 20px;
     text-align: center;
     left: 50px;
+    top: 20px;
 }
 
 .main-menu a:hover {
-    background-color: #ccccff;
-    color: #6666ff;
+    background-image: url('/images/button_active_image.png');
+    color: #ffffff !important;
+    border-radius: 10px;
 }
 
-.main-menu a:active {
-    background-color: #222;
-    color: #ff0;
+.main-menu a.active {
+    background-image: url('/images/button_active_image.png');
+    color: #00ff33 !important;
+    border-radius: 10px;
 }
+/*LanguageContainer*/
 .language-container {
     position: absolute;
     top: 10px;
@@ -65,19 +70,76 @@ body {
     height: 20px;
     width: 50px;
 }
+/*RegistrationContainer*/
 .registration-authorization-container {
     position: absolute;
-    top: 20%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
     height: 200px;
     width: 300px;
 }
+/*ItemContainer*/
 .item-container {
     position: absolute;
-    top: 10%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
     height: 100px;
-    width: 400px;
+    width: 800px;
 }
+/*LogoDeveloper*/
+.developer-logo {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 90px;
+    height: 50px;
+    z-index: 1000;
+}
+/*HomeHeader*/
+.home-header {
+    background-image: url('/images/Background_menu.png') !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    top: 10px;
+    left: 220px;
+    width: 85%;
+    height: 100px;
+    border-radius: 10px;
+}
+/*FieldImageFile*/
+.custom-file-input {
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #000000;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.custom-file-label {
+    width: 100%;
+    display: inline-block;
+    padding: .375rem .75rem;
+    cursor: pointer;
+    background-color: #ffffff;
+    color: #495057;
+    border-radius: .25rem;
+    transition: background-color .15s ease-in-out;
+}
+/*
+.custom-file-label:hover {
+    background-color: #0056b3;
+}
+    */

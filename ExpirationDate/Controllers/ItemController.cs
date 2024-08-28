@@ -10,12 +10,12 @@ using Microsoft.Extensions.Localization;
 namespace ExpirationDate.Controllers
 {
     [Authorize]
-    public class ItemController : BaseController<HomeController>//Controller
+    public class ItemController : BaseController<ItemController>
     {
         private readonly AppDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public ItemController(AppDbContext context, UserManager<IdentityUser> userManager, IStringLocalizer<HomeController> localizer) : base(localizer)//***
+        public ItemController(AppDbContext context, UserManager<IdentityUser> userManager, IStringLocalizer<ItemController> localizer) : base(localizer)
         {
             _context = context;
             _userManager = userManager;
@@ -35,7 +35,7 @@ namespace ExpirationDate.Controllers
                 var user = await _userManager.GetUserAsync(User);
                 if (user != null)
                 {
-                    string imagePath = null;
+                    string? imagePath = null;
 
                     if (model.ImageFile != null && model.ImageFile.Length > 0)
                     {
@@ -91,7 +91,23 @@ namespace ExpirationDate.Controllers
 
             return View(items);
         }
-        
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var item = await _context.Items.FindAsync(id);
+            if (item == null || item.UserId != _userManager.GetUserId(User))
+            {
+                return NotFound();
+            }
+
+            _context.Items.Remove(item);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("UserItems", "Item");
+        }
+    }
+}
+/*
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -111,7 +127,6 @@ namespace ExpirationDate.Controllers
                 Rating = item.Rating,
                 Price = item.Price
             };
-
             return View(model);
         }
 
@@ -121,11 +136,12 @@ namespace ExpirationDate.Controllers
             if (ModelState.IsValid)
             {
                 var item = await _context.Items.FindAsync(model.ItemId);
+                
                 if (item == null || item.UserId != _userManager.GetUserId(User))
                 {
                     return NotFound();
                 }
-
+                
                 string imagePath = item.ImagePath;
 
                 if (model.ImageFile != null && model.ImageFile.Length > 0)
@@ -157,22 +173,6 @@ namespace ExpirationDate.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Create", "Item");
             }
-
             return View(model);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(int id)
-        {
-            var item = await _context.Items.FindAsync(id);
-            if (item == null || item.UserId != _userManager.GetUserId(User))
-            {
-                return NotFound();
-            }
-
-            _context.Items.Remove(item);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Home");
-        }
-    }
-}
+        */
