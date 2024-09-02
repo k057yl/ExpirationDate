@@ -50,7 +50,7 @@
     <EmbeddedResource Update="Resources\SharedResources.en-US.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\SharedResources.ru-RU.resx">
+    <EmbeddedResource Update="Resources\SharedResources.uk-UA.resx">
       <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>

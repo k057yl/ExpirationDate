@@ -27,7 +27,9 @@
                     <td>
                         @if (!string.IsNullOrEmpty(item.ImagePath))
                         {
-                            <img src="@item.ImagePath" alt="Image" style="max-width: 100px; max-height: 100px;" />
+                            <a href="@Url.Action("Details", "Item", new { id = item.ItemId })">
+                                <img src="@item.ImagePath" alt="Image" style="max-width: 100px; max-height: 100px;" />
+                            </a>
                         }
                         else
                         {
@@ -40,7 +42,6 @@
                     <td>@item.Price.ToString("C")</td>
                     <td>@item.Rating</td>
                     <td>
-                        @*<a href="@Url.Action("Edit", "Item", new { id = item.ItemId })" class="btn btn-primary">@sharedLocalizer["Button.Edit"]</a>*@
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-itemid="@item.ItemId">
                             @sharedLocalizer["Button.Delete"]
                         </button>
@@ -101,3 +102,4 @@
         });
     </script>
 }
+@*<a href="@Url.Action("Edit", "Item", new { id = item.ItemId })" class="btn btn-primary">@sharedLocalizer["Button.Edit"]</a>*@

@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using ExpirationDate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
+using ExpirationDate.Models;
+using System.Globalization;
 
 namespace ExpirationDate.Controllers
 {
@@ -14,11 +16,13 @@ namespace ExpirationDate.Controllers
     {
         private readonly AppDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly CurrencyConverterService _currencyConverterService;
 
-        public ItemController(AppDbContext context, UserManager<IdentityUser> userManager, IStringLocalizer<ItemController> localizer) : base(localizer)
+        public ItemController(AppDbContext context, UserManager<IdentityUser> userManager, IStringLocalizer<ItemController> localizer, CurrencyConverterService currencyConverterService) : base(localizer)
         {
             _context = context;
             _userManager = userManager;
+            _currencyConverterService = currencyConverterService;
         }
 
         [HttpGet]
@@ -63,7 +67,7 @@ namespace ExpirationDate.Controllers
                         Description = model.Description,
                         Rating = model.Rating,
                         Price = model.Price,
-                        UserId = user.Id
+                        UserId = user.Id,
                     };
 
                     _context.Items.Add(item);
@@ -89,6 +93,14 @@ namespace ExpirationDate.Controllers
                 .Where(i => i.UserId == user.Id)
                 .ToListAsync();
 
+            var currencyConversionTasks = items.Select(async item =>
+            {
+                var currentCulture = CultureInfo.CurrentCulture.Name;
+                item.Price = await _currencyConverterService.ConvertPriceForLanguageAsync(item.Price, currentCulture);
+            });
+
+            await Task.WhenAll(currencyConversionTasks);
+
             return View(items);
         }
 
@@ -104,6 +116,20 @@ namespace ExpirationDate.Controllers
             _context.Items.Remove(item);
             await _context.SaveChangesAsync();
             return RedirectToAction("UserItems", "Item");
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var item = await _context.Items.FirstOrDefaultAsync(i => i.ItemId == id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            var currentCulture = CultureInfo.CurrentCulture.Name;
+            item.Price = await _currencyConverterService.ConvertPriceForLanguageAsync(item.Price, currentCulture);
+
+            return View(item);
         }
     }
 }

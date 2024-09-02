@@ -9,6 +9,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using ExpirationDate.Resources;
 using FluentValidation.AspNetCore;
+using ExpirationDate.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,9 +22,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Configure localization
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ItemDTOValidator>());//***********************
+builder.Services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<ItemDTOValidator>());
 builder.Services.AddControllersWithViews()
-    .AddFluentValidation()//***************************
+    .AddFluentValidation()
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
     .AddDataAnnotationsLocalization();
 
@@ -35,7 +36,7 @@ builder.Services.Configure<RequestLocalizationOptions>(option =>
     var supportedCultures = new[]
     {
         new CultureInfo("en-US"),
-        new CultureInfo("ru-RU")
+        new CultureInfo("uk-UA")
     };
 
     option.DefaultRequestCulture = new RequestCulture("en-US");
@@ -47,6 +48,8 @@ builder.Services.Configure<RequestLocalizationOptions>(option =>
 // Configure session and caching
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
+
+builder.Services.AddHttpClient<CurrencyConverterService>();
 
 // Configure Identity
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>

@@ -120,6 +120,9 @@
   <data name="Button.About" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="Button.Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
   <data name="Button.Create" xml:space="preserve">
     <value>Create</value>
   </data>
@@ -177,17 +180,32 @@
   <data name="Field.Description" xml:space="preserve">
     <value>Enter Description</value>
   </data>
+  <data name="Field.ExpirationDate" xml:space="preserve">
+    <value>Expiration date</value>
+  </data>
   <data name="Field.Name" xml:space="preserve">
     <value>Enter Name</value>
+  </data>
+  <data name="Field.Price" xml:space="preserve">
+    <value>Enter Price</value>
+  </data>
+  <data name="Field.Rating" xml:space="preserve">
+    <value>Enter Rating</value>
   </data>
   <data name="HomePage.Paragraph1" xml:space="preserve">
     <value>We are delighted to welcome you to our website, designed to help you effectively manage the expiration dates of your products. "ExpirationDate"is your reliable assistant for tracking the shelf life of food, medications, and other items, ensuring you can always use them before they expire.</value>
   </data>
   <data name="HomePage.Paragraph2" xml:space="preserve">
-    <value>Convenient Management: Easily add, update, and remove information about your products.
-Reminders: Receive notifications when your product's expiration date is approaching.
-Simplicity and Ease: Use an intuitive interface for quick and convenient management.
-Take care of your products and avoid unexpected issues with expired items. Stay one step ahead with "ExpirationDate"</value>
+    <value>Convenient Management: Easily add, update, and remove information about your products.</value>
+  </data>
+  <data name="HomePage.Paragraph2_1" xml:space="preserve">
+    <value>Reminders: Receive notifications when your product's expiration date is approaching.</value>
+  </data>
+  <data name="HomePage.Paragraph2_2" xml:space="preserve">
+    <value>Simplicity and Ease: Use an intuitive interface for quick and convenient management.</value>
+  </data>
+  <data name="HomePage.Paragraph2_3" xml:space="preserve">
+    <value>Take care of your products and avoid unexpected issues with expired items. Stay one step ahead with "ExpirationDate"</value>
   </data>
   <data name="HomePage.Title" xml:space="preserve">
     <value>Welcome to "ExpirationDate"!</value>

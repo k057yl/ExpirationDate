@@ -19,12 +19,12 @@
         </div>
         <div class="form-group">
             <label asp-for="Price" class="control-label">@localizer["CreatePage.Price"]</label>
-            <input asp-for="Price" class="form-control" />
+            <input asp-for="Price" class="form-control" placeholder="@localizer["Field.Price"]" />
             <span asp-validation-for="Price" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Rating" class="control-label">@localizer["CreatePage.Rating"]</label>
-            <input asp-for="Rating" class="form-control" />
+            <input asp-for="Rating" class="form-control" placeholder="@localizer["Field.Rating"]" />
             <span asp-validation-for="Rating" class="text-danger"></span>
         </div>
         <div class="form-group">

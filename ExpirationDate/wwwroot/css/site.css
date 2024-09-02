@@ -10,7 +10,6 @@ html {
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-    /*font-size: 20px;*/
 }
 
 html {
@@ -19,8 +18,11 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
-    background-color: #cccccc;
+    background-image: url('/images/Background2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
 }
 /*Menu*/
 .main-menu {
@@ -117,7 +119,6 @@ body {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #495057;
     background-color: #000000;
     background-clip: padding-box;
     border: 1px solid #ced4da;
@@ -134,12 +135,89 @@ body {
     padding: .375rem .75rem;
     cursor: pointer;
     background-color: #ffffff;
-    color: #495057;
+    color: #808080;
     border-radius: .25rem;
     transition: background-color .15s ease-in-out;
 }
-/*
-.custom-file-label:hover {
-    background-color: #0056b3;
+
+/* ContainerDetails*/
+.container-details {
+    width: 400px;
+    height: calc(100% - 200px);
+    background-color: #ffffff;
+    position: absolute;
+    top: 150px;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    border: double;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
-    */
+
+.container-tb {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.item-details,
+.buttons-container {
+    width: 100%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
+.buttons-dropdown {
+    background-image: url('/images/ButtonMenu.png');
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    margin: 10px;
+}
+
+.buttons-dropdown .btn {
+    background-image: url('/images/ButtonMenu.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
+    border: solid;
+    border-radius: 25px;
+    padding: 0;
+    color: transparent;
+    font-size: 0;
+}
+
+.dropdown-menu .dropdown-item {
+    background-color: #ffffff;
+    color: black;
+    text-align: center;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.dropdown-menu .dropdown-item:hover {
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+    width: 100%;
+}

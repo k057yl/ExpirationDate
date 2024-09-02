@@ -24,15 +24,10 @@ namespace ExpirationDate.Resources
             RuleFor(x => x.Price)
                 .NotEmpty()
                 .WithMessage(localizer["Warning.RequiredFieldMessage"])
-                //.GreaterThan(0)
+                .InclusiveBetween(0, 1000000)
                 .Must(price => decimal.TryParse(price.ToString(), out decimal parsedPrice) && parsedPrice > 0)
                 .WithMessage(localizer["Warning.PriceGreaterThanZero"]);
-            /*
-            .NotEmpty()
-            .Must(price => price > 0)
-            .GreaterThan(0)
-            .WithMessage(localizer["Warning.PriceGreaterThanZero"]);
-            */
+            
             RuleFor(x => x.Rating)
                 .NotEmpty()
                 .WithMessage(localizer["Warning.RequiredFieldMessage"])
@@ -47,3 +42,9 @@ namespace ExpirationDate.Resources
         }
     }
 }
+/*
+            .NotEmpty()
+            .Must(price => price > 0)
+            .GreaterThan(0)
+            .WithMessage(localizer["Warning.PriceGreaterThanZero"]);
+            */
