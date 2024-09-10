@@ -1,0 +1,12 @@
+﻿@model Dictionary<string, decimal>
+@inject ExpirationDate.Resources.SharedLocalizationService sharedLocalizer
+
+<div class="currency-rates">
+    @sharedLocalizer["Currency.Rates"]
+    <ul>
+        @foreach (var rate in Model)
+        {
+            <li>@rate.Key: @rate.Value</li>
+        }
+    </ul>
+</div>

@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ExpirationDate.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
-using ExpirationDate.Models;
-using System.Globalization;
+
 
 namespace ExpirationDate.Controllers
 {
@@ -16,13 +15,11 @@ namespace ExpirationDate.Controllers
     {
         private readonly AppDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly CurrencyConverterService _currencyConverterService;
 
-        public ItemController(AppDbContext context, UserManager<IdentityUser> userManager, IStringLocalizer<ItemController> localizer, CurrencyConverterService currencyConverterService) : base(localizer)
+        public ItemController(AppDbContext context, UserManager<IdentityUser> userManager, IStringLocalizer<ItemController> localizer) : base(localizer)
         {
             _context = context;
             _userManager = userManager;
-            _currencyConverterService = currencyConverterService;
         }
 
         [HttpGet]
@@ -30,7 +27,13 @@ namespace ExpirationDate.Controllers
         {
             return View();
         }
-
+/*
+        [HttpGet]
+        public IActionResult Edit()
+        {
+            return View();
+        }
+*/
         [HttpPost]
         public async Task<IActionResult> Create(ItemDTO model)
         {
@@ -67,6 +70,7 @@ namespace ExpirationDate.Controllers
                         Description = model.Description,
                         Rating = model.Rating,
                         Price = model.Price,
+                        Currency = model.Currency,
                         UserId = user.Id,
                     };
 
@@ -93,14 +97,6 @@ namespace ExpirationDate.Controllers
                 .Where(i => i.UserId == user.Id)
                 .ToListAsync();
 
-            var currencyConversionTasks = items.Select(async item =>
-            {
-                var currentCulture = CultureInfo.CurrentCulture.Name;
-                item.Price = await _currencyConverterService.ConvertPriceForLanguageAsync(item.Price, currentCulture);
-            });
-
-            await Task.WhenAll(currencyConversionTasks);
-
             return View(items);
         }
 
@@ -126,79 +122,53 @@ namespace ExpirationDate.Controllers
                 return NotFound();
             }
 
-            var currentCulture = CultureInfo.CurrentCulture.Name;
-            item.Price = await _currencyConverterService.ConvertPriceForLanguageAsync(item.Price, currentCulture);
-
             return View(item);
         }
-    }
-}
 /*
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, ItemDTO model)//****************************
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             var item = await _context.Items.FindAsync(id);
             if (item == null || item.UserId != _userManager.GetUserId(User))
             {
                 return NotFound();
             }
 
-            var model = new ItemDTO
-            {
-                ItemId = item.ItemId,
-                Name = item.Name,
-                ExpirationDate = item.ExpirationDate,
-                ImageFile = null,
-                Description = item.Description,
-                Rating = item.Rating,
-                Price = item.Price
-            };
-            return View(model);
-        }
+            item.Name = model.Name;
+            item.ExpirationDate = model.ExpirationDate;
+            item.Description = model.Description;
+            item.Rating = model.Rating;
+            item.Price = model.Price;
+            item.Currency = model.Currency;
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(ItemDTO model)
-        {
-            if (ModelState.IsValid)
+            if (model.ImageFile != null && model.ImageFile.Length > 0)
             {
-                var item = await _context.Items.FindAsync(model.ItemId);
-                
-                if (item == null || item.UserId != _userManager.GetUserId(User))
+                var fileName = Path.GetFileName(model.ImageFile.FileName);
+                var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
+                if (!Directory.Exists(uploads))
                 {
-                    return NotFound();
+                    Directory.CreateDirectory(uploads);
                 }
-                
-                string imagePath = item.ImagePath;
+                var filePath = Path.Combine(uploads, fileName);
 
-                if (model.ImageFile != null && model.ImageFile.Length > 0)
+                using (var stream = new FileStream(filePath, FileMode.Create))
                 {
-                    var fileName = Path.GetFileName(model.ImageFile.FileName);
-                    var uploads = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
-                    if (!Directory.Exists(uploads))
-                    {
-                        Directory.CreateDirectory(uploads);
-                    }
-                    var filePath = Path.Combine(uploads, fileName);
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await model.ImageFile.CopyToAsync(stream);
-                    }
-
-                    imagePath = $"/images/{fileName}";
+                    await model.ImageFile.CopyToAsync(stream);
                 }
 
-                item.Name = model.Name;
-                item.ExpirationDate = model.ExpirationDate;
-                item.ImagePath = imagePath;
-                item.Description = model.Description;
-                item.Rating = model.Rating;
-                item.Price = model.Price;
-
-                _context.Items.Update(item);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Create", "Item");
+                item.ImagePath = $"/images/{fileName}";
             }
-            return View(model);
+
+            _context.Items.Update(item);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("UserItems");
         }
-        */
+*/
+    }
+}

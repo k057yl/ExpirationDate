@@ -1,8 +1,4 @@
-﻿/*window.addEventListener('beforeunload', function () {
-    document.cookie = "TestCookie=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
-});
-*/
-document.querySelector('.custom-file-label').addEventListener('click', function (e) {
+﻿document.querySelector('.custom-file-label').addEventListener('click', function (e) {
     e.preventDefault();
     document.querySelector('.custom-file-input').click();
 });

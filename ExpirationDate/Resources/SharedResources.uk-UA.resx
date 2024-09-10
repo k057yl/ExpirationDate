@@ -153,6 +153,9 @@
   <data name="CreatePage.Actions" xml:space="preserve">
     <value>Дії</value>
   </data>
+  <data name="CreatePage.Currency" xml:space="preserve">
+    <value>Валюта</value>
+  </data>
   <data name="CreatePage.Description" xml:space="preserve">
     <value>Опис</value>
   </data>
@@ -173,6 +176,18 @@
   </data>
   <data name="CreatePage.SelectFile" xml:space="preserve">
     <value>Вибрати Файл</value>
+  </data>
+  <data name="Currency.EUR" xml:space="preserve">
+    <value>Євро</value>
+  </data>
+  <data name="Currency.Rates" xml:space="preserve">
+    <value>Курси валют :</value>
+  </data>
+  <data name="Currency.UAH" xml:space="preserve">
+    <value>Гривня</value>
+  </data>
+  <data name="Currency.USD" xml:space="preserve">
+    <value>Долар</value>
   </data>
   <data name="ExpirationDate" xml:space="preserve">
     <value>Термін придатності</value>

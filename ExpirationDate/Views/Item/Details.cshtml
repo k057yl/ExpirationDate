@@ -5,10 +5,8 @@
     ViewData["Title"] = Model.Name;
 }
 <div class="container-details">
-    <!-- Выпадающее меню -->
     <div class="dropdown buttons-dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton">
-            <!-- Кнопка без текста, только фон -->
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <li><a class="dropdown-item" href="@Url.Action("UserItems", "Item")">@sharedLocalizer["Button.Back"]</a></li>
@@ -17,25 +15,24 @@
         </ul>
     </div>
 
-    <!-- Основное содержимое блока -->
     <div class="container-tb">
         <div class="item-details">
-            <h2>@Model.Name</h2>
+            <b>@Model.Name</b>
             <img src="@Model.ImagePath" alt="@Model.Name" style="width: 300px; height: 300px;" />
             <div>
-                <h3>@sharedLocalizer["CreatePage.Description"]:</h3>
+                <b>@sharedLocalizer["CreatePage.Description"]:</b>
                 <p>@Model.Description</p>
             </div>
             <div>
-                <h3>@sharedLocalizer["CreatePage.Price"]:</h3>
-                <p>@Model.Price.ToString("C")</p>
+                <b>@sharedLocalizer["CreatePage.Price"]:</b>
+                <p>@Model.Price @Model.Currency</p>
             </div>
             <div>
-                <h3>@sharedLocalizer["CreatePage.Rating"]:</h3>
+                <b>@sharedLocalizer["CreatePage.Rating"]:</b>
                 <p>@Model.Rating</p>
             </div>
             <div>
-                <h3>@sharedLocalizer["Item.ExpirationDate"]:</h3>
+                <b>@sharedLocalizer["Item.ExpirationDate"]:</b>
                 <p>@Model.ExpirationDate.ToShortDateString()</p>
             </div>
         </div>

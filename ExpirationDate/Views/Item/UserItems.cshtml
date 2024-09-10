@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<ExpirationDate.Models.Entitys.Item>
 @inject ExpirationDate.Resources.SharedLocalizationService sharedLocalizer
+@using System.Globalization;
 
 @{
     ViewData["Title"] = "My Items";
@@ -39,7 +40,7 @@
                     <td>@item.Name</td>
                     <td>@item.Description</td>
                     <td>@item.ExpirationDate.ToShortDateString()</td>
-                    <td>@item.Price.ToString("C")</td>
+                    <td>@item.Price @item.Currency</td>
                     <td>@item.Rating</td>
                     <td>
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-itemid="@item.ItemId">
@@ -72,13 +73,15 @@
         </div>
     </div>
 </div>
-
+@*
 <style>
     .table, .table th, .table td {
-        white-space: nowrap;
-        width: auto;
+        white-space: normal;
+        
+        min-width: 150px;
         border: 1px solid black;
         border-collapse: collapse;
+        word-wrap: break-word;
     }
     .table th, .table td {
         padding: 8px;
@@ -90,7 +93,7 @@
             background-color: #99ffff;
     }
 </style>
-
+*@
 @section Scripts {
     <script>
         document.getElementById('deleteModal').addEventListener('show.bs.modal', function (event) {

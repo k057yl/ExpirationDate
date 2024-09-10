@@ -49,7 +49,8 @@ builder.Services.Configure<RequestLocalizationOptions>(option =>
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 
-builder.Services.AddHttpClient<CurrencyConverterService>();
+builder.Services.AddHttpClient<CurrencyService>();//*******************
+builder.Services.AddMemoryCache();//***********************
 
 // Configure Identity
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>

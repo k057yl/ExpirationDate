@@ -153,6 +153,9 @@
   <data name="CreatePage.Actions" xml:space="preserve">
     <value>Actions</value>
   </data>
+  <data name="CreatePage.Currency" xml:space="preserve">
+    <value>Currency</value>
+  </data>
   <data name="CreatePage.Description" xml:space="preserve">
     <value>Description</value>
   </data>
@@ -173,6 +176,18 @@
   </data>
   <data name="CreatePage.SelectFile" xml:space="preserve">
     <value>SelectFile</value>
+  </data>
+  <data name="Currency.EUR" xml:space="preserve">
+    <value>EUR</value>
+  </data>
+  <data name="Currency.Rates" xml:space="preserve">
+    <value>Currency Rates :</value>
+  </data>
+  <data name="Currency.UAH" xml:space="preserve">
+    <value>UAH</value>
+  </data>
+  <data name="Currency.USD" xml:space="preserve">
+    <value>USD</value>
   </data>
   <data name="ExpirationDate" xml:space="preserve">
     <value>ExpirationDate</value>
