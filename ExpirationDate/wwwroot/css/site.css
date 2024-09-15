@@ -54,13 +54,13 @@ body {
 }
 
 .main-menu a:hover {
-    background-image: url('/images/button_active_image.png');
+    background-color: #000000;
     color: #ffffff !important;
     border-radius: 10px;
 }
 
 .main-menu a.active {
-    background-image: url('/images/button_active_image.png');
+    background-color: #000000;
     color: #00ff33 !important;
     border-radius: 10px;
 }
@@ -71,7 +71,6 @@ body {
     right: 10px;
     width: 90px;
     height: 50px;
-    /*z-index: 1000;*/
 }
 /*Header*/
 .home-header {
@@ -87,7 +86,6 @@ body {
     border-radius: 10px;
     display: flex;
     justify-content: flex-end;
-    /*gap: 20px;*/
 }
 
 /*Buttom-menu*/
@@ -107,19 +105,23 @@ footer {
 }
 
 /*Home-page*/
-.home-preview-text {
+.home-preview-text-container {
     position: relative;
-    font-size: 20px;
+    margin-top: 20px;
     text-align: center;
-    left: 50px;
-    top: 20px;
+    overflow: hidden;
+    max-width: calc(100% - 220px);
+    margin-left: 220px;
+    box-sizing: border-box;
+}
+
+.home-preview-text {
+    font-size: 20px;
 }
 
 /*Language-container*/
 .language-container {
     display: flex;
-    margin-top: 20px;
-    margin-right: 20px;
     z-index: 1;
 }
 /*Currency*/
@@ -267,15 +269,17 @@ footer {
 .item-container {
     position: absolute;
     top: 30%;
-    left: 45%;
-    transform: translate(-50%, -50%);
-    height: 100px;
-    width: 800px;
+    min-height: 200px;
+    overflow-x: auto;
+    white-space: nowrap;
+    max-width: calc(100% - 320px);
+    margin-left: 220px;
+    margin-right: 100px;
 }
 /*Table-Item*/
 .table, .table th, .table td {
     white-space: normal;
-    min-width: 150px;
+    min-width: 100px;
     border: 1px solid black;
     border-collapse: collapse;
     word-wrap: break-word;
